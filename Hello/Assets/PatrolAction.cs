@@ -2,20 +2,21 @@
 using UnityEditor;
 
 [CreateAssetMenu (menuName = "PluggableAI/State")]
-public class State : ScriptableObject
+public class PatrolAction : Action
 {
-    public Action[] actions;
-    public Color sceneGizmoColor = Color.grey;
-
-    public void UpdateState(StateController controller)
+   public override void Act(StateController controller)
     {
-        DoActions(controller);
+        Patrol(controller);
     }
 
-    private void DoActions(StateController controller)
+    private void Patrol(StateController controller)
     {
-        for (int i = 0; i < actions.Length; i++) {
-            actions[i].Act (controller);
+        controller.navMeshAgent.destination = controller.wayPointList[controller.nextWayPoint].position;
+        controller.navMeshAgent.Resume();
+
+        if(controller.navMeshAgent.remainingDistance <= controller.navMeshAgent.stoppingDistance && !controller.navMeshAgent.pathPending)
+        {
+            controller.nextWayPoint = (controller.nextWayPoint + 1) % controller.wayPointList.Count;
         }
     }
 }
