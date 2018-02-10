@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Speers/wew.unity
+- path: Assets/wew.unity
   isLoaded: 1
   isActive: 1
