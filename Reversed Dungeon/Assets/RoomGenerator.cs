@@ -31,11 +31,11 @@ public class RoomGenerator : MonoBehaviour {
 							}
 							if (door) {
 								Debug.Log ("Door here!");
-								GameObject.Instantiate (tile, new Vector3 (x, y, 0), Quaternion.identity).transform.SetParent(rObject.transform);	
+								GameObject.Instantiate (tile, new Vector3 (x, y, 0.5f), Quaternion.identity).transform.SetParent(rObject.transform);	
 							}
 							else GameObject.Instantiate (wall, new Vector3 (x, y, 0), Quaternion.identity).transform.SetParent (rObject.transform);
 						} else {
-							GameObject.Instantiate (tile, new Vector3 (x, y, 0), Quaternion.identity).transform.SetParent(rObject.transform);
+							GameObject.Instantiate (tile, new Vector3 (x, y, 0.5f), Quaternion.identity).transform.SetParent(rObject.transform);
 						}
 					}
 				}
