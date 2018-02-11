@@ -18,7 +18,12 @@ class CharControl : MonoBehaviour {
 
 	void Update () {
 
-		movement ();
+		if (Battleflow.whoseTurn) {
+			movement ();
+		}
+
+		if(Input.GetKeyDown("space"))
+			Battleflow.whoseTurn = !Battleflow.whoseTurn;
 	}
 
 
@@ -33,10 +38,8 @@ class CharControl : MonoBehaviour {
 		// Check for surrounding cubes for 
 		for (int i = 0; i < 4; i++) {
 			var cols = Physics.OverlapBox (hitboxes[i].bounds.center, hitboxes[i].bounds.extents, hitboxes[i].transform.rotation, LayerMask.GetMask ("Obstacle"));
-		
-			foreach (Collider c in cols){
-				axis [i] = false;
-			}
+			foreach (Collider c in cols)
+					axis [i] = false;
 		}
 
 		// move up if 'w' is pressed
