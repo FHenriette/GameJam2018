@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 public class GameController : MonoBehaviour {
 
@@ -77,6 +76,5 @@ public class GameController : MonoBehaviour {
 
 	public void QuitGame(){
 		Application.Quit();
-		EditorApplication.isPlaying = false;
 	}
 }

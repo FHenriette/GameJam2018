@@ -431,8 +431,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1253, y: 516}
+  m_AnchoredPosition: {x: -0.7, y: 0}
+  m_SizeDelta: {x: 1233.7, y: 535}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &208048174
 MonoBehaviour:
@@ -815,7 +815,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 509, y: -222}
+  m_AnchoredPosition: {x: 416, y: -217}
   m_SizeDelta: {x: 217.5, y: 54.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &494056830
@@ -1578,6 +1578,7 @@ GameObject:
   - component: {fileID: 850821177}
   - component: {fileID: 850821176}
   - component: {fileID: 850821181}
+  - component: {fileID: 850821182}
   m_Layer: 0
   m_Name: Char
   m_TagString: Untagged
@@ -1591,7 +1592,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 850821175}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7036b3f0b9750b344b605e5c5cdfd086, type: 3}
   m_Name: 
@@ -1685,6 +1686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da64ef2fb901af748a047ec15c56be4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Jerry: {fileID: 1598447847}
   startHealth: 100
   currentHealth: 0
   startMana: 15
@@ -1702,11 +1704,29 @@ MonoBehaviour:
   startLevel: 1
   currentLevel: 0
   score: 0
+  speed: 1
   turn: 0
   melee: 1
   ranged: 0
   spell: 0
   isDead: 0
+  hitboxes:
+  - {fileID: 646740196}
+  - {fileID: 1757121611}
+  - {fileID: 1104437819}
+  - {fileID: 1730859668}
+--- !u!135 &850821182
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 850821175}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &915731927
 GameObject:
   m_ObjectHideFlags: 0
@@ -2526,6 +2546,7 @@ GameObject:
   - component: {fileID: 1436542105}
   - component: {fileID: 1436542104}
   - component: {fileID: 1436542107}
+  - component: {fileID: 1436542108}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -2612,6 +2633,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemies:
   - {fileID: 1859465883035490, guid: 926ef20937a83744da32fa515a7f1839, type: 2}
+--- !u!114 &1436542108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1436542103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 356dd25d6c1e7ea4c9a6cc0f4e38b1b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  col: {fileID: 850821182}
 --- !u!1 &1447301194
 GameObject:
   m_ObjectHideFlags: 0

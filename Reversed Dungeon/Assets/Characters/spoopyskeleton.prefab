@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4626699299808814}
   - component: {fileID: 33721811619735128}
   - component: {fileID: 23274019338797702}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4238784700696114}
-  m_Layer: 0
+  - component: {fileID: 114626918958999510}
+  - component: {fileID: 65747029584929718}
+  m_Layer: 9
   m_Name: spoopyskeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,3 +113,41 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1278717746575832}
   m_Mesh: {fileID: 4300000, guid: f8e84f38d41301c4c8382a982840daef, type: 3}
+--- !u!65 &65747029584929718
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1859465883035490}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114626918958999510
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1859465883035490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783d960b25d52c3438e59e68488d4f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyAttack: {fileID: 8300000, guid: d045df1d6c9277d4fbdb00b49fc8fc78, type: 3}
+  startHealth: 50
+  currentHealth: 0
+  startMana: 0
+  currentMana: 0
+  startArmor: 0
+  currentArmor: 0
+  startAttack: 5
+  currentAttack: 0
+  Levels: 0
+  startMP: 2.5
+  currentMP: 0
+  startAP: 1
+  currentAP: 0
+  turn: 0
