@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class UIControl : MonoBehaviour {
+	public GameObject MenuButtons;
 	public Text Level, Health, Mana, MovementPoints, Attack, Armor, AttackPoints;
-	public Image WinPanel, GameOverPanel;
+	public Image WinPanel, GameOverPanel, InGameUI, ControlsOverview, Credits;
+	public Canvas MainMenu;
 	public Player player;
 	// Use this for initialization
 	void Start () {

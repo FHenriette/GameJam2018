@@ -102,7 +102,7 @@ public class Room {
 	public static Room GenerateRooms(int n, int minWidth, int minHeight, int maxWidth, int maxHeight){
 		Queue<Room> rooms = new Queue<Room>();
 		HashSet<Room> generatedRooms = new HashSet<Room> ();
-		Room first = GenerateRoom (0, 0, minWidth, minHeight, maxWidth, maxHeight, Direction.NORTH, generatedRooms);
+		Room first = GenerateRoom (0, 0, minWidth, minHeight, minWidth+1, minHeight+1, Direction.NORTH, generatedRooms);
 		Debug.Log (first);
 		first.doors = GenerateDoors (first);;
 		generatedRooms.Add (first);
