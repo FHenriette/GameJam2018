@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioClip))]
+
 public class Enemy : MonoBehaviour {
+
+	public AudioClip EnemyAttack;
+	AudioSource audioSource;
 
 	//Stats of a character
 	public int startHealth = 50; //Starting Health
@@ -32,6 +37,9 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		audioSource = GetComponent<AudioSource> ();
+
 
 		currentAttack = startAttack;
 		currentArmor = startArmor;
@@ -101,14 +109,24 @@ public class Enemy : MonoBehaviour {
 
 	public void EnemyTurn(){
 
-		Vector3 pos = FindObjectOfType<CharControl> ().transform.position;
+		Vector3 pos = FindObjectOfType<Player>().transform.position;
+		Debug.Log (pos);
 
 		for (int i = 0; i < startMP; i++) {
 
-			float left = Mathf.Pow (Mathf.Sqrt ((transform.position.x - 1 - pos.x) + (transform.position.y - pos.y)),2),
-				right = Mathf.Pow (Mathf.Sqrt ((transform.position.x + 1 - pos.x) + (transform.position.y - pos.y)),2),
-				up = Mathf.Pow (Mathf.Sqrt ((transform.position.x - pos.x) + (transform.position.y + 1 - pos.y)),2),
-				down = Mathf.Pow (Mathf.Sqrt ((transform.position.x - pos.x) + (transform.position.y - 1 - pos.y)),2);
+			// Float variables to hold the longest and shortest way to the target (this being Jerry)
+			float left = 	Mathf.Sqrt(Mathf.Pow(transform.position.y - pos.y,2) + 			Mathf.Pow(transform.position.x - (pos.x - 1),2)),
+			right = 		Mathf.Sqrt(Mathf.Pow(transform.position.y - pos.y,2) + 			Mathf.Pow(transform.position.x - (pos.x + 1),2)),
+			up = 			Mathf.Sqrt(Mathf.Pow(transform.position.y - (pos.y + 1),2) +	Mathf.Pow(transform.position.x - pos.x,2)),
+			down = 			Mathf.Sqrt(Mathf.Pow(transform.position.y - (pos.y - 1),2) + 	Mathf.Pow(transform.position.x - pos.x,2));
+
+			Debug.Log ("left: " + left);
+
+			Debug.Log ("right: " + right);
+
+			Debug.Log ("up: " + up);
+
+			Debug.Log ("down: " + down);
 		
 			if ((transform.position.x - 1 == pos.x && transform.position.y == pos.y) ||
 			   (transform.position.x + 1 == pos.x && transform.position.y == pos.y) ||
@@ -117,15 +135,27 @@ public class Enemy : MonoBehaviour {
 				break;
 			}
 
-			if (left < right && left < up && left < down) {
-				transform.position = new Vector3(transform.position.x-1, transform.position.y, transform.position.z);
-			} else if (right < left && right < up && right < down) {
-				transform.position = new Vector3(transform.position.x+1, transform.position.y, transform.position.z);
-			} else if (up < right && up < left && up < down) {
-				transform.position = new Vector3(transform.position.x, transform.position.y+1, transform.position.z);
-			} else if (down < right && down < left && down < up) {
-				transform.position = new Vector3(transform.position.x, transform.position.y-1, transform.position.z);
+			Debug.Log (transform.position);
+
+			if (left > right && left > up && left > down) {
+				transform.position = new Vector3 (transform.position.x -1, transform.position.y, transform.position.z);
+			} else if (right > left && right > up && right > down) {
+				transform.position = new Vector3 (transform.position.x +1, transform.position.y, transform.position.z);
+			} else if (down > right && down > left && down > up) {
+				transform.position = new Vector3 (transform.position.x, transform.position.y-1, transform.position.z);
+			} else if (up > right && up > down && up > left) {
+				transform.position = new Vector3 (transform.position.x, transform.position.y+1, transform.position.z);
+			} else if (right == down && right > left) {
+				transform.position = new Vector3 (transform.position.x+1, transform.position.y, transform.position.z);
+			} else if (left == down && left > up) {
+				transform.position = new Vector3 (transform.position.x, transform.position.y-1, transform.position.z);
+			} else if (left == up && up > right) {
+				transform.position = new Vector3 (transform.position.x-1, transform.position.y, transform.position.z);
+			} else if (up == right && right > down) {
+				transform.position = new Vector3 (transform.position.x, transform.position.y+1, transform.position.z);
 			}
+
+			new WaitForSeconds (1);
 		
 		}
 
@@ -135,6 +165,9 @@ public class Enemy : MonoBehaviour {
 				(transform.position.x == pos.x && transform.position.y + 1 == pos.y) ||
 				(transform.position.x == pos.x && transform.position.y - 1 == pos.y)) {
 				FindObjectOfType<Player> ().currentHealth -= (startAttack - FindObjectOfType<Player> ().currentArmor);
+				audioSource.clip = EnemyAttack;
+				audioSource.volume = 0.2f;
+				audioSource.Play();
 			}
 		}
 	

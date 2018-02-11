@@ -16,11 +16,12 @@ public class Battleflow : MonoBehaviour {
 	void Update () {
 		if (!whoseTurn) {
 			Debug.Log ("Checks");
-			var cols = Physics.OverlapSphere (col.transform.position, col.radius, LayerMask.GetMask ("Enemy"));
+			var cols = Physics.OverlapSphere(col.transform.position, 20f,LayerMask.GetMask("Enemy"));
 			foreach (Collider c in cols) {
-				c.GetComponent<Enemy> ().EnemyTurn ();
-				Debug.Log ("found enemy");
+				Debug.Log (c.name);
+				c.GetComponent<Enemy>().EnemyTurn();
 			}
+
 			new WaitForSeconds(2);
 			Debug.Log("done");
 			whoseTurn = true;

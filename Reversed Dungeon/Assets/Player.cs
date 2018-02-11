@@ -27,6 +27,8 @@ public class Player : MonoBehaviour {
 	//public int killExp = (15+(Enemy.Levels *2));
 	public int score;
 
+	public int speed = 1;
+
 	//Turn
 	public int turn;
 
@@ -37,6 +39,9 @@ public class Player : MonoBehaviour {
 
 	//Deadsies
 	public bool isDead = false;
+
+	// used for hitboxes
+	public Collider[] hitboxes;
 
 	// Use this for initialization
 	void Start () {
@@ -52,26 +57,26 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		PlayerGainExp ();
-		/*
-		public void takeDamage(int damage){
+		if (!isDead) {
+			if (Battleflow.whoseTurn) {
+				movement ();
+			}
 
-			currentHealth =- (damage - currentArmor);
+			PlayerGainExp ();
 
+			if (currentHealth <= 0) {
+				score = currentExp;
+			}
 		}
+			
+		checkDeath ();
+	}
 
-		if(currentHealth <= 0 && !isDead){
-			Death();
+	//Function for when dead - What to do and reset.
+	public void checkDeath(){
+		if (currentHealth <= 0) {
+			isDead = true; 
 		}
-
-		public void Death(){
-
-		isDead = true;
-
-		playerMovement = false;
-		playerMelee = false;
-		playerRanged = false;
-	*/
 	}
 
 	public void PlayerAttack(){
@@ -112,33 +117,33 @@ public class Player : MonoBehaviour {
 		}*/
 	}
 
-	public void PlayerAttacks (int damage){
-		/*
-		damage = Player.currentAttack;
+	public void PlayerAttacks (){
+		
+		/*int damage = currentAttack;
 
 		//These 3 specifies which attack you want toggled
 		if (Input.GetKeyDown ("1")) { 
 			print ("Melee attack is now toggled");
-			damage = Player.currentAttack;
-			Player.melee = true;
-			Player.ranged = false;
-			Player.spell = false;
+			damage = currentAttack;
+			melee = true;
+			ranged = false;
+			spell = false;
 		}
 		if (Input.GetKeyDown ("2")) {
 			print ("Ranged attack is now toggled");
-			damage = *0.75;
+			damage *= 0.75;
 			melee = false;
 			ranged = true;
 			spell = false;
 		}
 		if (Input.GetKeyDown ("3")) {
 			print ("Spell is now toggled");
-			damage = *1.50f;
+			damage *= 1.50f;
 			melee = false;
 			ranged = false;
 			spell = true;
 		}
-		if (Input.GetMouseButtonDown ("0" || "1" || "2")) {
+		if (Input.GetMouseButtonDown (0 || 1 || 2)) {
 			print (BattleFlow.enemies [i] + " has been targeted");
 			//tags the enemy with left, right, middle mouse click.
 		}
@@ -165,7 +170,7 @@ public class Player : MonoBehaviour {
 				}
 			}
 		}
-	*/}
+	}
 
 	public void PlayerGenes(){
 
@@ -193,6 +198,50 @@ public class Player : MonoBehaviour {
 				currentAttack += 5;
 				currentArmor += 2;
 			}
+		}*/
+	}
+
+	// Controls movement of character.
+	private void movement(){
+		if (currentMP > 0) {
+			// Create bools for movement
+			bool[] axis = new bool[4];
+			for (int i = 0; i < 4; i++)
+				axis [i] = true;
+
+			for (int i = 0; i < 4; i++) {
+				//check for surrounding obstacles
+				var cols = Physics.OverlapBox (hitboxes [i].bounds.center, hitboxes [i].bounds.extents, hitboxes [i].transform.rotation, LayerMask.GetMask ("Obstacle"));
+				foreach (Collider c in cols)
+					axis [i] = false;
+				//check for surrounding enemies
+				var newcols = Physics.OverlapBox (hitboxes [i].bounds.center, hitboxes [i].bounds.extents, hitboxes [i].transform.rotation, LayerMask.GetMask ("Enemy"));
+				foreach (Collider c in newcols)
+					axis [i] = false;
+			}
+
+			// move up if 'w' is pressed
+			if (axis [0] && Input.GetKeyDown ("w")) {
+				transform.position = new Vector3 (transform.position.x, transform.position.y + speed, 0);
+				currentMP -= 1;
+			} else if (axis [1] && Input.GetKeyDown ("s")) {
+				transform.position = new Vector3 (transform.position.x, transform.position.y - speed, 0);
+				currentMP -= 1;
+			} else if (axis [2] && Input.GetKeyDown ("a")) {
+				transform.position = new Vector3 (transform.position.x - speed, transform.position.y, 0);
+				currentMP -= 1;
+			} else if (axis [3] && Input.GetKeyDown ("d")) {
+				transform.position = new Vector3 (transform.position.x + speed, transform.position.y, 0);
+				currentMP -= 1;
+			}
 		}
+	}
+
+	public void endTurn(){
+		//Reset counters
+		currentMP = startMP;
+		currentAP = startAP;
+		//change to AI turn
+		Battleflow.whoseTurn = !Battleflow.whoseTurn;
 	}
 }
