@@ -8,10 +8,10 @@ public class RoomGenerator : MonoBehaviour {
 	public List<Sprite> tileTextures;
 	public List<Texture> wallTextures;
 	HashSet<Room> generatedRooms = new HashSet<Room>();
-	public Room room;
 	// Use this for initialization
-	void Start () {
-		room = Room.GenerateRooms (20, 5, 5, 15, 15);
+
+	public Room GenerateRooms (int n, int minw, int minh, int maxw, int maxh) {
+		Room room = Room.GenerateRooms (n, minw, minh, maxw, maxh);
 		Queue<Room> rooms = new Queue<Room> ();
 		rooms.Enqueue (room);
 		while (rooms.Count > 0) {
@@ -57,5 +57,6 @@ public class RoomGenerator : MonoBehaviour {
 				generatedRooms.Add (r);
 			}
 		}
+		return room;
 	}
 }
