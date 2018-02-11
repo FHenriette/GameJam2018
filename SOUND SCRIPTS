@@ -1,0 +1,84 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[RequireComponent(typeof(AudioClip))]
+
+public class Sounds : MonoBehaviour {
+
+	public AudioClip Spell;
+	public AudioClip Ranged;
+	public AudioClip Melee;
+	public AudioClip GetHit;
+	public AudioClip LevelUp;
+	public AudioClip EnemyAttack;
+	public AudioClip Theme;
+
+	AudioSource audioSource;
+
+ 	void Start(){
+
+		//This is just needed in the start of the main script of the game, or in each void Start there is
+		audioSource = GetComponent<AudioSource> ();
+
+	}
+
+	void Update () {
+		/*
+		//These are just needed in the main script of the game:
+		//[RequireComponent(typeof(AudioClip))]
+		public AudioClip Spell;
+		public AudioClip Ranged;
+		public AudioClip Melee;
+		public AudioClip GetHit;
+		public AudioClip LevelUp;
+		public AudioClip EnemyAttack;
+		public AudioClip Theme;
+
+		AudioSource audioSource;
+
+		The 3 lines of code below in each keypress function is to be put in where their respective sound is need
+		This means melee in melee attack, ranged in ranged etc. 
+
+		Again, it concerns these 3 lines of code:
+		audioSource.clip = INSERT NAME OF AUDIO FILE HERE;
+		audioSource.volume = INSERT FLOAT BETWEEN 0.0 AND 1.0 HERE;
+		audioSource.Play ();
+		*/
+		if (Input.GetKeyDown ("1")) {
+			audioSource.clip = Melee;
+			audioSource.volume = 1f;
+			audioSource.Play ();
+		}
+		if (Input.GetKeyDown ("2")) {
+			audioSource.clip = Ranged;
+			audioSource.volume = 1f;
+			audioSource.Play ();
+		}
+		if (Input.GetKeyDown ("3")) {
+			audioSource.clip = Spell;
+			audioSource.volume = 1f;
+			audioSource.Play ();
+		}
+		if (Input.GetKeyDown ("4")) {
+			audioSource.clip = GetHit;
+			audioSource.volume = 1f;
+			audioSource.Play ();
+		}
+		if (Input.GetKeyDown ("5")) {
+			audioSource.clip = LevelUp;
+			audioSource.volume = 0.1f;
+			audioSource.Play ();
+		}
+		if (Input.GetKeyDown ("6")) {
+			audioSource.clip = EnemyAttack;
+			audioSource.volume = 0.2f;
+			audioSource.Play ();
+		}
+		if (Input.GetKeyDown ("7")) {
+			audioSource.clip = Theme;
+			audioSource.volume = 0.25f;
+			audioSource.Play ();
+		}
+	}
+}
