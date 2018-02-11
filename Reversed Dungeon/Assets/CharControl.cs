@@ -18,12 +18,12 @@ class CharControl : MonoBehaviour {
 
 	void Update () {
 
-		if (Battleflow.whoseTurn == 1) {
+		if (Battleflow.whoseTurn) {
 			movement ();
 		}
 
 		if(Input.GetKeyDown("space"))
-			Battleflow.whoseTurn = 2;
+			Battleflow.whoseTurn = !Battleflow.whoseTurn;
 	}
 
 
